@@ -16,3 +16,10 @@ Most Levenshtein implementations store the full (m+1) x (n+1) DP matrix.  We onl
 ## Edge cases
 
 Empty strings are handled directly: the distance to an empty string equals the length of the other string, and two empty strings have distance zero.  Python's case sensitivity means `Levenshtein("Abc", "abc")` is 1, not 0; normalize your inputs beforehand if you want case-insensitive comparison.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
